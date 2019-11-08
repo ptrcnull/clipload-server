@@ -3,9 +3,14 @@
 
 Building:
 ```
-go build -ldflags "-X main.BaseUrl=https://image-api.tld" server.go
+go build server.go
 ```
 or
 ```
-docker build --build-arg baseURL=https://image-api.tld -t clipload-server .
+docker build -t clipload-server .
+```
+
+Running:
+```
+docker run -d --name clipload-server -p 8012:8012 -v $(pwd)/img:/app/img clipload-server
 ```

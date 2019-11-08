@@ -6,14 +6,17 @@ import (
 	"io/ioutil"
 	"log"
 	"path"
+	"strings"
 )
-
-var BaseUrl string
 
 func main() {
 	r := gin.Default()
 
 	r.GET("/*.png", func(c *gin.Context) {
+		if !strings.HasSuffix(c.Request.URL.Path, ".png") {
+			c.String(403, "403 Forbidden")
+			return
+		}
 		c.File(path.Join("img", c.Request.URL.Path[1:]))
 	})
 
@@ -32,7 +35,7 @@ func main() {
 			return
 		}
 
-		c.String(200, path.Join(BaseUrl, filename))
+		c.String(200, "http://"+path.Join(c.Request.Host, filename))
 	})
 
 	err := r.Run("0.0.0.0:8012")
