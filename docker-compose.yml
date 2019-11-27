@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  clipload:
+    build: .
+    container_name: clipload
+    restart: always
+    ports:
+    - 8012:8012
+    volumes:
+    - ./img:/app/img
